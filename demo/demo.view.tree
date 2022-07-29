@@ -1,5 +1,11 @@
 $hyoo_harp_demo $mol_page
 	title \HARP
+	plugins /
+		<= Theme $mol_theme_auto
+	tools /
+		<= Source $mol_link_source
+			uri \https://github.com/hyoo-ru/harp.hyoo.ru
+		<= Lights $mol_lights_toggle
 	body /
 		<= Content $mol_list rows /
 			<= Uri $mol_textarea
