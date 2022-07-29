@@ -1,6 +1,6 @@
 namespace $.$$ {
 	
-	export class $hyoo_harp_demo extends $.$hyoo_harp_demo {
+	export class $hyoo_harp_app extends $.$hyoo_harp_app {
 		
 		@ $mol_mem
 		uri( next?: string ) {

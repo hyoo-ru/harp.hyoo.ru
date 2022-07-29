@@ -1,5 +1,4 @@
-name: $hyoo_harp_demo
-
+name: $hyoo_harp_app
 on:
   workflow_dispatch:
   push:
@@ -18,10 +17,10 @@ jobs:
       with:
         token: ${{ secrets.GH_PAT }}
         package: 'hyoo/harp'
-        modules: 'demo'
+        modules: 'app'
     
     - uses: alex-page/blazing-fast-gh-pages-deploy@v1.1.0
       if: github.ref == 'refs/heads/master'
       with:
         repo-token: ${{ secrets.GH_PAT }}
-        site-directory: 'hyoo/harp/demo/-'
+        site-directory: 'hyoo/harp/app/-'
