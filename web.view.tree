@@ -348,8 +348,8 @@ $mol_dump_value $mol_view
 					values <= row_values* /
 					prototypes <= prototypes false
 
-$hyoo_harp_demo $mol_page
-	title \HARP
+$hyoo_harp_app $mol_page
+	title \HARP - Humane API REST Protocol
 	plugins /
 		<= Theme $mol_theme_auto
 	tools /

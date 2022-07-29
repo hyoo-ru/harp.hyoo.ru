@@ -2123,7 +2123,7 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
-    class $hyoo_harp_demo extends $mol_page {
+    class $hyoo_harp_app extends $mol_page {
         title(): string;
         plugins(): readonly any[];
         tools(): readonly any[];
@@ -2157,7 +2157,7 @@ declare namespace $ {
 }
 
 declare namespace $.$$ {
-    class $hyoo_harp_demo extends $.$hyoo_harp_demo {
+    class $hyoo_harp_app extends $.$hyoo_harp_app {
         uri(next?: string): string;
         json(): $hyoo_harp_query<string>;
     }

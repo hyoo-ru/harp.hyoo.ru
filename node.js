@@ -7033,9 +7033,9 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    class $hyoo_harp_demo extends $mol_page {
+    class $hyoo_harp_app extends $mol_page {
         title() {
-            return "HARP";
+            return "HARP - Humane API REST Protocol";
         }
         plugins() {
             return [
@@ -7098,31 +7098,31 @@ var $;
     }
     __decorate([
         $mol_mem
-    ], $hyoo_harp_demo.prototype, "Theme", null);
+    ], $hyoo_harp_app.prototype, "Theme", null);
     __decorate([
         $mol_mem
-    ], $hyoo_harp_demo.prototype, "Source", null);
+    ], $hyoo_harp_app.prototype, "Source", null);
     __decorate([
         $mol_mem
-    ], $hyoo_harp_demo.prototype, "Lights", null);
+    ], $hyoo_harp_app.prototype, "Lights", null);
     __decorate([
         $mol_mem
-    ], $hyoo_harp_demo.prototype, "uri", null);
+    ], $hyoo_harp_app.prototype, "uri", null);
     __decorate([
         $mol_mem
-    ], $hyoo_harp_demo.prototype, "Uri", null);
+    ], $hyoo_harp_app.prototype, "Uri", null);
     __decorate([
         $mol_mem
-    ], $hyoo_harp_demo.prototype, "json", null);
+    ], $hyoo_harp_app.prototype, "json", null);
     __decorate([
         $mol_mem
-    ], $hyoo_harp_demo.prototype, "Json", null);
+    ], $hyoo_harp_app.prototype, "Json", null);
     __decorate([
         $mol_mem
-    ], $hyoo_harp_demo.prototype, "Content", null);
-    $.$hyoo_harp_demo = $hyoo_harp_demo;
+    ], $hyoo_harp_app.prototype, "Content", null);
+    $.$hyoo_harp_app = $hyoo_harp_app;
 })($ || ($ = {}));
-//hyoo/harp/demo/-view.tree/demo.view.tree.ts
+//hyoo/harp/app/-view.tree/app.view.tree.ts
 ;
 "use strict";
 //hyoo/harp/query/query.ts
@@ -7223,16 +7223,16 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("hyoo/harp/demo/demo.view.css", "[hyoo_harp_demo_content] {\n\tpadding: var(--mol_gap_block);\n}\n");
+    $mol_style_attach("hyoo/harp/app/app.view.css", "[hyoo_harp_app_content] {\n\tpadding: var(--mol_gap_block);\n}\n");
 })($ || ($ = {}));
-//hyoo/harp/demo/-css/demo.view.css.ts
+//hyoo/harp/app/-css/app.view.css.ts
 ;
 "use strict";
 var $;
 (function ($) {
     var $$;
     (function ($$) {
-        class $hyoo_harp_demo extends $.$hyoo_harp_demo {
+        class $hyoo_harp_app extends $.$hyoo_harp_app {
             uri(next) {
                 return this.$.$mol_state_arg.value('query', next) ?? super.uri();
             }
@@ -7242,13 +7242,13 @@ var $;
         }
         __decorate([
             $mol_mem
-        ], $hyoo_harp_demo.prototype, "uri", null);
+        ], $hyoo_harp_app.prototype, "uri", null);
         __decorate([
             $mol_mem
-        ], $hyoo_harp_demo.prototype, "json", null);
-        $$.$hyoo_harp_demo = $hyoo_harp_demo;
+        ], $hyoo_harp_app.prototype, "json", null);
+        $$.$hyoo_harp_app = $hyoo_harp_app;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
-//hyoo/harp/demo/demo.view.ts
+//hyoo/harp/app/app.view.ts
 
 //# sourceMappingURL=node.js.map
