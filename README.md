@@ -8,20 +8,23 @@ HARP is powerful easy to read and debug declarative normalized graph protocol fo
 
 ## Properties
 
-|                                         | HARP   | OData | GraphQL
-|-----------------------------------------|--------|-------|--------
-| **Single line** query                   | ✅    | ✅    |❌
-| Common uri **query string** compatibile | ❌    | ✅    |❌
-| **File name** compatible                | ✅    | ❌    |❌
-| **Web Tools** Friendly                  | ✅    | ❌    |❌
-| Data **filtering**                      | ✅    | ✅    |❌
-| Limited filtering **logic**             | ✅    | ❌    |✅
-| Data **sorting**                        | ✅    | ✅    |❌
-| Data **limiting**                       | ✅    | ✅    |❌
-| Data **aggregation**                    | ✅    | ✅    |❌
-| **Metadata** query                      | ✅    | ✅    |✅
-| **Normalized** response                 | ✅    | ❌    |❌
-| **Idempotent** requests                 | ✅    | ❌    |❌
+|                                         | HARP    | OData     | GraphQL
+|-----------------------------------------|---------|-----------|--------
+| **Architecture**                        | ✅REST | ✅REST    |❌RPC
+| Common **uri query string** compatibile | ⭕Back | ✅Full    |❌
+| **Pseudo-static** compatibile           | ⭕Back | ⭕Partial |❌
+| **Same model** of request and response  | ✅     | ✅        |❌
+| **Single line** query                   | ✅     | ✅        |❌
+| **File name** compatible                | ✅     | ❌        |❌
+| **Web Tools** Friendly                  | ✅     | ❌        |❌
+| Data **filtering**                      | ✅     | ✅        |❌
+| Limited filtering **logic**             | ✅     | ❌        |✅
+| Data **sorting**                        | ✅     | ✅        |❌
+| Data **slicing**                        | ✅     | ✅        |❌
+| Data **aggregation**                    | ✅     | ✅        |❌
+| **Metadata** query                      | ✅     | ✅        |✅
+| **Idempotent** requests                 | ✅     | ❌        |❌
+| **Normalized** response                 | ✅     | ❌        |❌
 
 # Architecture
 
