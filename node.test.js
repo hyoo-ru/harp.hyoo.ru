@@ -7144,7 +7144,9 @@ var $;
             '': (text, chunks, offset) => {
                 if (values) {
                     text = decodeURIComponent(text);
-                    range = range ? [range[0], text] : [text];
+                    range = (range && range.length > 1)
+                        ? [range[0], range[1] + text]
+                        : [(range?.[0] ?? '') + text];
                 }
                 else {
                     let [, order, name] = /^([+-]?)(.*)$/.exec(text);
@@ -7155,7 +7157,15 @@ var $;
                 }
             },
             'filter': (filter, chinks, offset) => {
-                if (prev) {
+                if (values) {
+                    if (range) {
+                        range.push(range.pop() + filter);
+                    }
+                    else {
+                        range = [filter];
+                    }
+                }
+                else if (prev) {
                     values = prev[filter] = [];
                 }
                 else {
@@ -8079,6 +8089,16 @@ var $;
                 },
                 hobby: {
                     '=': [['paint'], ['singing']],
+                },
+            });
+        },
+        'unescaped values'() {
+            $mol_assert_like($hyoo_harp_from_string('foo=jin=777;bar=jin@666'), {
+                foo: {
+                    '=': [['jin=777']],
+                },
+                bar: {
+                    '=': [['jin@666']],
                 },
             });
         },
