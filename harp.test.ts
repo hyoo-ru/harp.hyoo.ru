@@ -64,6 +64,31 @@ namespace $ {
 			)
 		} ,
 		
+		'common query string back compatible' () {
+			$mol_assert_like(
+				$hyoo_harp_from_string( 'user=jin&age=100500' ),
+				{
+					user: {
+						'=': [[ 'jin' ]],
+					},
+					age: {
+						'=': [[ '100500' ]],
+					},
+				},
+			)
+		} ,
+		
+		'common pathname back compatible' () {
+			$mol_assert_like(
+				$hyoo_harp_from_string( 'users/jin/comments' ),
+				{
+					users: {},
+					jin: {},
+					comments: {},
+				},
+			)
+		} ,
+		
 		'deep fetch' () {
 			check(
 				'my[friend[age];name];stat',
