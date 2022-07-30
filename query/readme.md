@@ -23,17 +23,19 @@ Common query string format: pairs separated by `&`, key and value separated by `
 
 Common path format: chunks sparated by `/`.
 
-❌ `:` can't be used in first chunk of path and in file names.
+❌ `:` can't be used in first chunk of path.
 
 ❌ Second+ `?` and `#` may be escaped by some libs.
 
+❌ `/ : ?` can't be used in file names.
+
 So mostly safe symbols:
 
-	/ @ $ & + = ; ,
+	@ $ & + = ; ,
 
 Symbols which can be used in the path in any place, which is escaped by `encodURIComponent`, but which doesn't escaped by ChromeDev Tools:
 
-	/ @ $ & + = ; , [ ]
+	@ $ & + = ; , [ ]
 
 ## Decision
 

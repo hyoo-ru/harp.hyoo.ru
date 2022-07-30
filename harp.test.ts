@@ -130,6 +130,20 @@ namespace $ {
 			)
 		} ,
 		
+		'unescaped values' () {
+			$mol_assert_like(
+				$hyoo_harp_from_string( 'foo=jin=777;bar=jin@666' ),
+				{
+					foo: {
+						'=': [[ 'jin=777' ]],
+					},
+					bar: {
+						'=': [[ 'jin@666' ]],
+					},
+				}
+			)
+		} ,
+		
 		'slicing' () {
 			check(
 				'friend[_num=0&100]',

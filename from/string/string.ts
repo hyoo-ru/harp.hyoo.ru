@@ -29,7 +29,9 @@ namespace $ {
 				if( values ) {
 
 					text = decodeURIComponent( text )
-					range = range ? [ range[0] , text ] : [ text ]
+					range = ( range && range.length > 1 )
+						? [ range[0] , range[1] + text ]
+						: [ ( range?.[0] ?? '' ) + text ]
 					
 				} else {
 
@@ -43,6 +45,14 @@ namespace $ {
 			} ,
 			
 			'filter' : ( filter , chinks , offset )=> {
+				
+				if( values ) {
+					if( range ) {
+						range.push( range.pop() + filter )
+					} else {
+						range = [ filter ]
+					}
+				} else 
 				
 				if( prev ) {
 					
