@@ -7131,7 +7131,7 @@ var $;
 var $;
 (function ($) {
     const syntax = new $mol_syntax2({
-        'filter': /[=@]/,
+        'filter': /!?=/,
         'list_separator': /,/,
         'range_separator': /&/,
         'fetch_open': /\[/,

@@ -636,14 +636,14 @@ var $;
                 return '';
             if (field === '=')
                 return '';
-            if (field === '@')
+            if (field === '!=')
                 return '';
             if (!harp)
                 return '';
             const order = harp['+'] === true ? '+' : harp['+'] === false ? '-' : '';
-            const filter = harp['='] ? '=' : harp['@'] ? '@' : '';
+            const filter = harp['='] ? '=' : harp['!='] ? '!=' : '';
             const name = encodeURIComponent(field);
-            let values = (harp['='] || harp['@'] || []).map(([min, max]) => {
+            let values = (harp['='] || harp['!='] || []).map(([min, max]) => {
                 if (max === undefined || min === max)
                     return encodeURIComponent(String(min));
                 min = (min === undefined) ? '' : encodeURIComponent(String(min));
@@ -740,12 +740,12 @@ var $;
             });
         },
         'filter types'() {
-            check('sex=female;status@married', {
+            check('sex=female;status!=married', {
                 sex: {
                     '=': [['female']],
                 },
                 status: {
-                    '@': [['married']],
+                    '!=': [['married']],
                 },
             });
         },
@@ -769,12 +769,12 @@ var $;
             });
         },
         'unescaped values'() {
-            $mol_assert_like($hyoo_harp_from_string('foo=jin=777;bar=jin@666'), {
+            $mol_assert_like($hyoo_harp_from_string('foo=jin=777;bar=jin!=666'), {
                 foo: {
                     '=': [['jin=777']],
                 },
                 bar: {
-                    '=': [['jin@666']],
+                    '=': [['jin!=666']],
                 },
             });
         },
