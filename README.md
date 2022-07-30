@@ -60,13 +60,11 @@ _query
 			pullRequest=second
 pullRequest
 	\first
-		_num 0
 		state closed
 		repository repo=mol
 		author user=jin
 		updateTime 2022-07-22
 	\second
-		_num 1
 		state merged
 		repository repo=mol
 		author user=jin

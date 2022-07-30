@@ -7135,7 +7135,7 @@ var $;
         'list_separator': /,/,
         'range_separator': /@/,
         'fetch_open': /\[/,
-        'fetch_separator': /[;&\/]/,
+        'fetch_separator': /[;&\/?#]/,
         'fetch_close': /\]/,
     });
     function $hyoo_harp_from_string(uri) {
