@@ -7,7 +7,7 @@ namespace $ {
 	} & {
 		'+'?: boolean // asc order or not
 		'='?: any[][] // only list of ranges
-		'@'?: any[][] // except list of ranges
+		'!='?: any[][] // except list of ranges
 	}
 	
 }

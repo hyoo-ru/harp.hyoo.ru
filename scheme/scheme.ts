@@ -14,7 +14,7 @@ namespace $ {
 			... sub,
 			'+': $mol_data_optional( $mol_data_boolean ),
 			'=': values,
-			'@': values,
+			'!=': values,
 			'_num': $mol_data_optional( $mol_data_record({
 				'=': $mol_data_array( $mol_data_array( Int ) )
 			}) ),
