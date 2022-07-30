@@ -75,13 +75,13 @@ Index of entity in the fetched list.
 
 Sums of values from sub requests.
 
-- `_sum[income[month=2022-07];outcome[month=2022-07]` - calculate this month full income and outcome.
+- `_sum[income[month=2022-07;value];outcome[month=2022-07];value` - calculate this month full income and outcome.
 
 ```json
 {
 	"_sum": {
-		"income[month=2022-07]": 9000,
-		"outcome[month=2022-07]": 9000,
+		"income[month=2022-07;value]": 9000,
+		"outcome[month=2022-07;value]": 9000,
 	}
 }
 ```

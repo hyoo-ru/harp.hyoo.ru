@@ -29,13 +29,11 @@ _query
 			pullRequest=second
 pullRequest
 	\first
-		_num 0
 		state closed
 		repository repo=mol
 		author user=jin
 		updateTime 2022-07-22
 	\second
-		_num 1
 		state merged
 		repository repo=mol
 		author user=jin
@@ -62,14 +60,12 @@ user
 	},
 	"pullRequest": {
 		"first": {
-			"_num": 0,
 			"state": "closed",
 			"repository": [ "repo=mol" ],
 			"author": [ "user=jin" ],
 			"updateTime": "2022-07-22",
 		},
 		"second": {
-			"_num": 1,
 			"state": "merged",
 			"repository": [ "repo=mol" ],
 			"author": [ "user=jin" ],
@@ -106,14 +102,12 @@ Attached XSLT makes UI to view data in comfortable way. [Online example](https:/
 		<reply>pullRequest=first</reply>
 	</_query>
 	<pullRequest id="pullRequest=first">
-		<_num>0</_num>
 		<state>closed</state>
 		<repository>repo=mol</repository>
 		<author>user=jin</author>
 		<updateTime>2022-07-22</updateTime>
 	</pullRequest>
 	<pullRequest id="pullRequest=second">
-		<_num>1</_num>
 		<state>merged</state>
 		<repository>repo=mol</repository>
 		<author>user=jin</author>
