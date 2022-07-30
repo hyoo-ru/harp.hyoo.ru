@@ -109,7 +109,7 @@ namespace $ {
 		
 		'filter ranges' () {
 			check(
-				'sex=female;age=18&25;weight=&50;height=150&;hobby=paint,singing',
+				'sex=female;age=18@25;weight=@50;height=150@;hobby=paint,singing',
 				{
 					sex: {
 						'=': [[ 'female' ]],
@@ -146,7 +146,7 @@ namespace $ {
 		
 		'slicing' () {
 			check(
-				'friend[_num=0&100]',
+				'friend[_num=0@100]',
 				{
 					friend: {
 						_num: { '=': [[ '0', '100' ]] },
@@ -157,7 +157,7 @@ namespace $ {
 		
 		'complex' () {
 			check(
-				'pullRequest[state=closed,merged;+repository[name;private];-updateTime;_num=0&100]',
+				'pullRequest[state=closed,merged;+repository[name;private];-updateTime;_num=0@100]',
 				{
 					pullRequest: {
 						state: {

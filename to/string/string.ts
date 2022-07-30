@@ -20,7 +20,7 @@ namespace $ {
 				min = ( min === undefined ) ? '' : encodeURIComponent( String( min ) )
 				max = ( max === undefined ) ? '' : encodeURIComponent( String( max ) )
 				
-				return `${ min }&${ max }`
+				return `${ min }@${ max }`
 
 			} ).join( ',' )
 			

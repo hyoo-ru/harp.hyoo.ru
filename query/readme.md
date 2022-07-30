@@ -48,19 +48,19 @@ Symbols which isn't escaped but can be used in context where user data can't be:
 - Order predicate (`+` - asc, `-` - desc) may be added before name: `+title;-salary`.
 - Filter prdicate (`=` - positive, `!=` - negative) with value may be added after name: `sex=female;status!=married`.
 - Values are separated by `,`: `gender=male,female,helicopter`.
-- Open ranges are defined using `&`: `age=18,18&;weight=&50;height=150&170`
-  - `1&5` = `2,3,4`
-  - `1&` - greater then 1
-  - `&5` - lower then 5
+- Open ranges are defined using `@`: `age=18,18@;weight=@50;height=150@170`
+  - `1@5` = `2,3,4`
+  - `1@` - greater then 1
+  - `@5` - lower then 5
 - Sub query is wrapped by `[]`: `user=me[name;age]`.
 
 ## Examples
 
 - `GET /` - metadata of all types.
 - `GET /user=jin,john[name;age]` - name and age of users by its primary keys.
-- `GET /user[sex=male,female;age=18,18&;role!=admin]` - `sex`, `age` and `role` of `18+` `males` and `females` without `admin` rights.
-- `GET /user[+birthday=2000-01-01&;-created;_num=&10]` - `10` users with `birthday` from `2000-01-01` ordered by `birthday` asc then `created` desc.
-- `GET /user=me[friend[+age=18&;name;_num=&10]]` - my first 10 younger adult friends with fetching they names and ages.
+- `GET /user[sex=male,female;age=18,18@;role!=admin]` - `sex`, `age` and `role` of `18+` `males` and `females` without `admin` rights.
+- `GET /user[+birthday=2000-01-01@;-created;_num=@10]` - `10` users with `birthday` from `2000-01-01` ordered by `birthday` asc then `created` desc.
+- `GET /user=me[friend[+age=18@;name;_num=@10]]` - my first 10 younger adult friends with fetching they names and ages.
 - `GET /user=jin[friend[name]];article[author[name]]` - all `jin` friend names and all article author names, without users data duplication.
 
 ## Common Functions
@@ -69,7 +69,7 @@ Symbols which isn't escaped but can be used in context where user data can't be:
 
 Index of entity in the fetched list.
 
-- `issues[_num=30&40]` - 10 issues after first 30.
+- `issues[_num=30@40]` - 10 issues after first 30.
 
 ### `_sum`
 

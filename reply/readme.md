@@ -23,7 +23,7 @@ Description of HARP reply.
 
 ```tree
 _query
-	\pullRequest[_num=20&30;state=closed,merged;+repository[name;private;owner[name];_len[issue]];-updateTime;author[name]]
+	\pullRequest[_num=20@30;state=closed,merged;+repository[name;private;owner[name];_len[issue]];-updateTime;author[name]]
 		reply
 			pullRequest=first
 			pullRequest=second
@@ -56,7 +56,7 @@ user
 ```json
 {
 	"_query": {
-		"pullRequest[_num=20&30;state=closed,merged;+repository[name;private;owner[name];_len[issue]];-updateTime;author[name]]": {
+		"pullRequest[_num=20@30;state=closed,merged;+repository[name;private;owner[name];_len[issue]];-updateTime;author[name]]": {
 			"reply": [ "pullRequest=first", "pullRequest=second" ]
 		},
 	},
@@ -101,7 +101,7 @@ Attached XSLT makes UI to view data in comfortable way. [Online example](https:/
 ```xml
 <?xml-stylesheet type="text/xsl" href="https://harp.hyoo.ru/view.xsl"?>
 <slice xmlns="https://harp.hyoo.ru">
-	<_query id="pullRequest[_num=20&amp;30;state=closed,merged;+repository[name;private;owner[name];_len[issue]];-updateTime;author[name]]">
+	<_query id="pullRequest[_num=20@30;state=closed,merged;+repository[name;private;owner[name];_len[issue]];-updateTime;author[name]]">
 		<reply>pullRequest=first</reply>
 		<reply>pullRequest=first</reply>
 	</_query>

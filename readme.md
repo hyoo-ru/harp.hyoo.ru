@@ -44,14 +44,14 @@ HARP is powerful easy to read and debug declarative normalized graph protocol fo
 #### Request
 
 ```
-GET /pullRequest[state=closed,merged;+repository[name;private;owner[name];_len[issue]];-updateTime;author[name];_num=20&30]
+GET /pullRequest[state=closed,merged;+repository[name;private;owner[name];_len[issue]];-updateTime;author[name];_num=20@30]
 ```
 
 #### Tree Response
 
 ```tree
 _query
-	\pullRequest[_num=20&30;state=closed,merged;+repository[name;private;owner[name];_len[issue]];-updateTime;author[name]]
+	\pullRequest[state=closed,merged;+repository[name;private;owner[name];_len[issue]];-updateTime;author[name];_num=20@30]
 		reply
 			pullRequest=first
 			pullRequest=second
