@@ -18,8 +18,8 @@ jobs:
         token: ${{ secrets.GH_PAT }}
         package: 'hyoo/harp'
         modules: 'app'
-	
-	- run: cp harp.xsl hyoo/harp/app/-
+    
+    - run: cp harp.xsl hyoo/harp/app/-
     
     - uses: alex-page/blazing-fast-gh-pages-deploy@v1.1.0
       if: github.ref == 'refs/heads/master'
