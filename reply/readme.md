@@ -38,6 +38,8 @@ pullRequest
 		repository repo=mol
 		author user=jin
 		updateTime 2022-07-21
+	\third
+		_error \Access Denied
 repo
 	\mol
 		name \mol
@@ -70,7 +72,10 @@ user
 			"repository": [ "repo=mol" ],
 			"author": [ "user=jin" ],
 			"updateTime": "2022-07-21",
-		},	
+		},
+		"third": {
+			"_error": "Access Denied",
+		},
 	},
 	"repo": {
 		"mol": {
@@ -112,6 +117,9 @@ Attached XSLT makes UI to view data in comfortable way. [Online example](https:/
 		<repository>repo=mol</repository>
 		<author>user=jin</author>
 		<updateTime>2022-07-21</updateTime>
+	</pullRequest>
+	<pullRequest id="pullRequest=third">
+		<_error>Access Denied</_error>
 	</pullRequest>
 	<repo id="repo=mol">
 		<name>mol</name>
