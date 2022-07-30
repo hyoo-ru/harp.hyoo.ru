@@ -648,7 +648,7 @@ var $;
                     return encodeURIComponent(String(min));
                 min = (min === undefined) ? '' : encodeURIComponent(String(min));
                 max = (max === undefined) ? '' : encodeURIComponent(String(max));
-                return `${min}&${max}`;
+                return `${min}@${max}`;
             }).join(',');
             let fetch = $hyoo_harp_to_string(harp);
             if (fetch)
@@ -750,7 +750,7 @@ var $;
             });
         },
         'filter ranges'() {
-            check('sex=female;age=18&25;weight=&50;height=150&;hobby=paint,singing', {
+            check('sex=female;age=18@25;weight=@50;height=150@;hobby=paint,singing', {
                 sex: {
                     '=': [['female']],
                 },
@@ -779,14 +779,14 @@ var $;
             });
         },
         'slicing'() {
-            check('friend[_num=0&100]', {
+            check('friend[_num=0@100]', {
                 friend: {
                     _num: { '=': [['0', '100']] },
                 },
             });
         },
         'complex'() {
-            check('pullRequest[state=closed,merged;+repository[name;private];-updateTime;_num=0&100]', {
+            check('pullRequest[state=closed,merged;+repository[name;private];-updateTime;_num=0@100]', {
                 pullRequest: {
                     state: {
                         '=': [

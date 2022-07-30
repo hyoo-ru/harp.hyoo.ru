@@ -6723,7 +6723,7 @@ var $;
         uri(next) {
             if (next !== undefined)
                 return next;
-            return "pullRequest[state=closed,merged;+repository[name;private;owner[name];_len[issue]];-updateTime;author[name];_num=20&30]";
+            return "pullRequest[state=closed,merged;+repository[name;private;owner[name];_len[issue]];-updateTime;author[name];_num=20@30]";
         }
         Uri() {
             const obj = new this.$.$mol_textarea();
@@ -6787,7 +6787,7 @@ var $;
     const syntax = new $mol_syntax2({
         'filter': /!?=/,
         'list_separator': /,/,
-        'range_separator': /&/,
+        'range_separator': /@/,
         'fetch_open': /\[/,
         'fetch_separator': /;/,
         'fetch_close': /\]/,
