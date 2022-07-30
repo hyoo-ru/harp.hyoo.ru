@@ -1,7 +1,7 @@
 namespace $ {
 	
 	const syntax = new $mol_syntax2({
-		'filter' : /[=@]/ ,
+		'filter' : /!?=/ ,
 		'list_separator' : /,/ ,
 		'range_separator' : /&/ ,
 		'fetch_open' : /\[/ ,
@@ -56,7 +56,7 @@ namespace $ {
 				
 				if( prev ) {
 					
-					values = prev[ filter as '=' | '@' ] = [] as string[][]
+					values = prev[ filter as '=' | '!=' ] = [] as string[][]
 					
 				} else {
 					

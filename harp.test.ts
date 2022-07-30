@@ -95,13 +95,13 @@ namespace $ {
 		
 		'filter types' () {
 			check(
-				'sex=female;status@married',
+				'sex=female;status!=married',
 				{
 					sex: {
 						'=': [[ 'female' ]],
 					},
 					status: {
-						'@': [[ 'married' ]],
+						'!=': [[ 'married' ]],
 					},
 				},
 			)
@@ -132,13 +132,13 @@ namespace $ {
 		
 		'unescaped values' () {
 			$mol_assert_like(
-				$hyoo_harp_from_string( 'foo=jin=777;bar=jin@666' ),
+				$hyoo_harp_from_string( 'foo=jin=777;bar=jin!=666' ),
 				{
 					foo: {
 						'=': [[ 'jin=777' ]],
 					},
 					bar: {
-						'=': [[ 'jin@666' ]],
+						'=': [[ 'jin!=666' ]],
 					},
 				}
 			)

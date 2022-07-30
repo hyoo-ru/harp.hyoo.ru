@@ -6,14 +6,14 @@ namespace $ {
 			
 			if( field === '+' ) return ''
 			if( field === '=' ) return ''
-			if( field === '@' ) return ''
+			if( field === '!=' ) return ''
 			if( !harp ) return ''
 			
 			const order = harp['+'] === true ? '+' : harp['+'] === false ? '-' : ''
-			const filter = harp['='] ? '=' : harp['@'] ? '@' : ''
+			const filter = harp['='] ? '=' : harp['!='] ? '!=' : ''
 			const name = encodeURIComponent( field )
 			
-			let values = ( ( harp['='] || harp['@'] || [] ) as unknown[][] ).map( ([ min , max ]) => {
+			let values = ( ( harp['='] || harp['!='] || [] ) as unknown[][] ).map( ([ min , max ]) => {
 
 				if( max === undefined || min === max ) return encodeURIComponent( String( min ) )
 				
