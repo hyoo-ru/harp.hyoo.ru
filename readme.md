@@ -23,7 +23,7 @@ HARP is powerful easy to read and debug declarative normalized graph protocol fo
 | Data **slicing**                        | ✅     | ✅        |❌
 | Data **aggregation**                    | ✅     | ✅        |❌
 | **Metadata** query                      | ✅     | ✅        |✅
-| **Idempotent** requests                 | ✅     | ❌        |❌
+| **Idempotent** requests                 | ✅     | ⭕        |❌
 | **Normalized** response                 | ✅     | ❌        |❌
 
 # Architecture
