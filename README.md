@@ -6,6 +6,10 @@ HARP is powerful easy to read and debug declarative normalized graph protocol fo
 - [HARP Reply](./reply) - normalized graph slice data output.
 - [HARP Scheme](./scheme) - type-safe builder/parser/validator.
 
+## Articles
+
+- [Humane API REST Protocol](https://github.com/nin-jin/HabHub/issues/50)
+
 ## Properties
 
 |                                         | HARP    | OData     | GraphQL
