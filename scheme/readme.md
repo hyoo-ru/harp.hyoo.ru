@@ -6,6 +6,8 @@ HARP Scheme with parser/serializer and static/dynamic validation/normalization
 
 ### Define scheme
 
+Use [$mol_data](https://github.com/hyoo-ru/mam_mol/tree/master/data) to where it's relevant.
+
 ```ts
 const Str = $mol_data_optional( $hyoo_harp_scheme( {}, String ) )
 const Int = $mol_data_optional( $hyoo_harp_scheme( {}, Number ) )
@@ -25,13 +27,23 @@ const Person = $hyoo_harp_scheme({
 ### Build Query
 
 ```ts
-// person[name;age;article[title]]
+// person[name;+age=18@;article[title];_num=20@29]
 const query = Person.build({
     person: {
         name: {},
-        age: {},
+        age: {
+            '+': true,
+            '=': [
+                [ 18, '' ]
+            ],
+        },
         article: {
             title: {},
+        },
+        '_num': {
+            '=': [
+                [ 20, 29 ]
+            ],
         },
     },
 })
