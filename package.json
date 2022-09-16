@@ -162,7 +162,8 @@
     "$mol_expander",
     "$hyoo_harp_from_string",
     "$hyoo_harp_from",
-    "$hyoo_harp_query"
+    "$hyoo_harp_query",
+    "$hyoo_harp_rate"
   ],
   "dependencies": {
     "jsdom": "*",

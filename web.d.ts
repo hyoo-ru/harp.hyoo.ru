@@ -1922,6 +1922,7 @@ declare namespace $ {
             autocomplete: string;
             selectionEnd: number;
             selectionStart: number;
+            inputMode: string;
         };
         attr(): {
             maxlength: number;
@@ -1942,6 +1943,7 @@ declare namespace $ {
         autocomplete_native(): string;
         selection_end(): number;
         selection_start(): number;
+        keyboard(): string;
         length_max(): number;
         type(val?: any): string;
         event_change(event?: any): any;
@@ -2003,6 +2005,7 @@ declare namespace $ {
             autocomplete: string;
             selectionEnd: number;
             selectionStart: number;
+            inputMode: string;
         };
     }
 }
@@ -2138,6 +2141,8 @@ declare namespace $ {
         Theme(): $$.$mol_theme_auto;
         Source(): $mol_link_source;
         Lights(): $$.$mol_lights_toggle;
+        rate(): number;
+        Rate(): $mol_speck;
         uri(next?: any): string;
         Uri(): $$.$mol_textarea;
         json(next?: any): any;
@@ -2161,12 +2166,17 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    function $hyoo_harp_rate(query: $hyoo_harp_query<any>): number;
+}
+
+declare namespace $ {
 }
 
 declare namespace $.$$ {
     class $hyoo_harp_app extends $.$hyoo_harp_app {
         uri(next?: string): string;
         json(): $hyoo_harp_query<string>;
+        rate(): number;
     }
 }
 

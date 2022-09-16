@@ -247,6 +247,8 @@ $mol_string $mol_view
 	minimal_height 40
 	autocomplete false
 	selection?val /number
+		0
+		0
 	auto /
 		<= selection_watcher null
 	field *
@@ -258,6 +260,7 @@ $mol_string $mol_view
 		autocomplete <= autocomplete_native \
 		selectionEnd <= selection_end 0
 		selectionStart <= selection_start 0
+		inputMode <= keyboard \text
 	attr *
 		^
 		maxlength <= length_max Infinity
@@ -359,6 +362,7 @@ $hyoo_harp_app $mol_page
 		<= Lights $mol_lights_toggle
 	body /
 		<= Content $mol_list rows /
+			<= Rate $mol_speck value <= rate 0
 			<= Uri $mol_textarea
 				hint \harp;query
 				value? <=> uri? \pullRequest[state=closed,merged;+repository[name;private;owner[name];_len[issue]];-updateTime;author[name];_num=20@30]
