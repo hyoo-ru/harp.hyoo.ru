@@ -12,6 +12,11 @@ namespace $.$$ {
 			return $hyoo_harp_from_string( this.uri() )
 		}
 		
+		@ $mol_mem
+		rate() {
+			return $hyoo_harp_rate( this.json() )
+		}
+		
 	}
 	
 }
