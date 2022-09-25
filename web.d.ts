@@ -1987,6 +1987,7 @@ declare namespace $ {
         value(val?: any): string;
         hint(): string;
         enabled(): boolean;
+        spellcheck(): boolean;
         length_max(): number;
         selection(val?: any): readonly number[];
         Edit(): $mol_textarea_edit;
