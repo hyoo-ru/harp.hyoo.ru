@@ -2181,12 +2181,20 @@ declare namespace $ {
         expand_title(): string;
         Expand_title(): $$.$mol_text_code;
         Expand_head(): $$.$mol_check_expand;
+        preview_dom(): any;
+        preview(): any;
+        Preview_dom(): $mol_view;
+        Preview(): $mol_view;
         row_values(id: any): readonly any[];
         prototypes(): boolean;
         Row(id: any): $$.$mol_dump_list;
         expand_content(): readonly any[];
         Expand(): $$.$mol_expander;
     }
+}
+
+declare namespace $ {
+    function $mol_try<Result>(handler2: () => Result): Result | Error;
 }
 
 declare namespace $ {
@@ -2198,7 +2206,8 @@ declare namespace $.$$ {
         simple(): string;
         expand_title(): any;
         rows_values(): any[][];
-        expand_content(): $mol_dump_list[];
+        preview_dom(): Element | null;
+        expand_content(): ($mol_view | $mol_dump_list)[];
         row_values(index: number): any[];
         expand_all(event?: Event, blacklist?: Set<unknown>): void;
     }

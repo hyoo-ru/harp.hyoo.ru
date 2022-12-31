@@ -6693,6 +6693,25 @@ var $;
             ];
             return obj;
         }
+        preview_dom() {
+            return null;
+        }
+        preview() {
+            return null;
+        }
+        Preview_dom() {
+            const obj = new this.$.$mol_view();
+            obj.dom_node = () => this.preview_dom();
+            obj.render = () => this.preview();
+            return obj;
+        }
+        Preview() {
+            const obj = new this.$.$mol_view();
+            obj.sub = () => [
+                this.Preview_dom()
+            ];
+            return obj;
+        }
         row_values(id) {
             return [];
         }
@@ -6707,6 +6726,7 @@ var $;
         }
         expand_content() {
             return [
+                this.Preview(),
                 this.Row("0")
             ];
         }
@@ -6734,6 +6754,12 @@ var $;
         $mol_mem
     ], $mol_dump_value.prototype, "Expand_head", null);
     __decorate([
+        $mol_mem
+    ], $mol_dump_value.prototype, "Preview_dom", null);
+    __decorate([
+        $mol_mem
+    ], $mol_dump_value.prototype, "Preview", null);
+    __decorate([
         $mol_mem_key
     ], $mol_dump_value.prototype, "Row", null);
     __decorate([
@@ -6746,7 +6772,34 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("mol/dump/value/value.view.css", "[mol_dump_value] {\n\tmin-height: 2.5rem;\n\tmin-width: 2.5rem;\n}\n\n[mol_dump_value_simple] {\n\tpadding: 0;\n}\n\n[mol_dump_value_expand_content] {\n\tpadding-left: 1.5rem;\n}\n\n[mol_dump_value_expand_title_rows],\n[mol_dump_value_simple_rows],\n[mol_dump_value_expand_head] {\n\tpadding: 0;\n}\n");
+    let error;
+    let result;
+    let handler;
+    function $mol_try(handler2) {
+        handler = handler2;
+        error = undefined;
+        result = undefined;
+        window.dispatchEvent(new Event('$mol_try'));
+        const error2 = error;
+        const result2 = result;
+        error = undefined;
+        result = undefined;
+        return error2 || result2;
+    }
+    $.$mol_try = $mol_try;
+    self.addEventListener('$mol_try', (event) => {
+        result = handler();
+    }, true);
+    self.addEventListener('error', (event) => {
+        error = event.error;
+    }, true);
+})($ || ($ = {}));
+//mol/try/try.web.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/dump/value/value.view.css", "[mol_dump_value] {\n\tmin-height: 2.5rem;\n\tmin-width: 2.5rem;\n}\n\n[mol_dump_value_simple] {\n\tpadding: 0;\n}\n\n[mol_dump_value_expand_content] {\n\tpadding-left: 1.5rem;\n\talign-items: flex-start;\n}\n\n[mol_dump_value_expand_title_rows],\n[mol_dump_value_simple_rows],\n[mol_dump_value_expand_head] {\n\tpadding: 0;\n}\n");
 })($ || ($ = {}));
 //mol/dump/value/-css/value.view.css.ts
 ;
@@ -6849,8 +6902,22 @@ var $;
                 }
                 return res;
             }
+            preview_dom() {
+                const value = this.value();
+                if (value instanceof Element) {
+                    if ($mol_try(() => value.localName) instanceof Error)
+                        return null;
+                    if (value.isConnected)
+                        return null;
+                    return value;
+                }
+                return null;
+            }
             expand_content() {
-                return this.rows_values().map((_, index) => this.Row(index));
+                return [
+                    ...this.preview_dom() ? [this.Preview()] : [],
+                    ...this.rows_values().map((_, index) => this.Row(index)),
+                ];
             }
             row_values(index) {
                 return this.rows_values()[index];
@@ -6861,6 +6928,8 @@ var $;
                 blacklist.add(this.value());
                 this.expanded(true);
                 for (const row of this.expand_content()) {
+                    if (!(row instanceof $mol_dump_list))
+                        continue;
                     if (row.values()[0] === '__proto__:')
                         continue;
                     row.expand_all(event, blacklist);
@@ -6879,6 +6948,9 @@ var $;
         __decorate([
             $mol_mem
         ], $mol_dump_value.prototype, "rows_values", null);
+        __decorate([
+            $mol_mem
+        ], $mol_dump_value.prototype, "preview_dom", null);
         __decorate([
             $mol_mem
         ], $mol_dump_value.prototype, "expand_content", null);
