@@ -7,21 +7,21 @@ namespace $ {
 		Value extends $mol_data_value< any, any > = typeof $mol_data_integer,
 	>( sub: Sub, value = $mol_data_integer as Value ) {
 		
-		const inner = $mol_data_variant( $mol_data_record( sub ) )
-		const values = $mol_data_variant( $mol_data_array( $mol_data_array( value ) ) )
+		const inner = $mol_data_optional( $mol_data_record( sub ) ) as $mol_data_value<
+			undefined | Readonly<{ [Key in keyof Sub ]: Parameters< Sub[Key] >[0] }>,
+			undefined | Readonly<{ [Key in keyof Sub ]: ReturnType< Sub[Key] > }>
+		>
 		
-		const config = {
-			... sub,
-			'+': $mol_data_variant( $mol_data_boolean ),
-			'=': values,
-			'!=': values,
-			'_num': $mol_data_variant( $mol_data_record({
-				'=': $mol_data_array( $mol_data_array( Int ) )
-			}) ),
-		}
+		const values = $mol_data_optional( $mol_data_array( $mol_data_array( value ) ) )
 		
 		const val = $mol_data_record({
-			... config,
+			... sub,
+			'+': $mol_data_optional( $mol_data_boolean ),
+			'=': values,
+			'!=': values,
+			'_num': $mol_data_optional( $mol_data_record({
+				'=': $mol_data_array( $mol_data_array( Int ) )
+			}) ),
 			'_len': inner,
 			'_max': inner,
 			'_min': inner,
