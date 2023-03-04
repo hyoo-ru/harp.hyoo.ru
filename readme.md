@@ -51,33 +51,33 @@ HARP is powerful easy to read and debug declarative normalized graph protocol fo
 #### Request
 
 ```
-GET /pullRequest[state=closed,merged;+repository[name;private;owner[name];_len[issue]];-updateTime;author[name];_num=20@30]
+GET /pullRequest(state=closed=merged=;+repository(name;private;owner(name);_len(issue));-updateTime;author(name);_num=20@30=)
 ```
 
 #### Tree Response
 
 ```tree
 _query
-	\pullRequest[state=closed,merged;+repository[name;private;owner[name];_len[issue]];-updateTime;author[name];_num=20@30]
+	\pullRequest(state=closed=merged=;+repository(name;private;owner(name);_len(issue));-updateTime;author(name);_num=20@30=)
 		reply
-			pullRequest=first
-			pullRequest=second
+			pullRequest=first=
+			pullRequest=second=
 pullRequest
 	\first
 		state closed
-		repository repo=mol
-		author user=jin
+		repository repo=mol=
+		author user=jin=
 		updateTime 2022-07-22
 	\second
 		state merged
-		repository repo=mol
-		author user=jin
+		repository repo=mol=
+		author user=jin=
 		updateTime 2022-07-21
 repo
 	\mol
 		name \mol
 		private false
-		owner user=jin
+		owner user=jin=
 		_len issue 100500
 user
 	\jin

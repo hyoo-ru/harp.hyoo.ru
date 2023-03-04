@@ -2,11 +2,10 @@ namespace $ {
 	
 	const syntax = new $mol_syntax2({
 		'filter' : /!?=/ ,
-		'list_separator' : /,/ ,
 		'range_separator' : /@/ ,
-		'fetch_open' : /\[/ ,
+		'fetch_open' : /\(/ ,
 		'fetch_separator' : /[;&\/?#]/ ,
-		'fetch_close' : /\]/ ,
+		'fetch_close' : /\)/ ,
 	})
 
 	export function $hyoo_harp_from_string( uri: string ): $hyoo_harp_query {
@@ -47,14 +46,16 @@ namespace $ {
 			'filter' : ( filter , chinks , offset )=> {
 				
 				if( values ) {
+					
 					if( range ) {
-						range.push( range.pop() + filter )
+						if( filter === '!=' ) range.push( range.pop() + '!' )
+						values!.push( range! )
+						range = null
 					} else {
 						range = [ filter ]
 					}
-				} else 
-				
-				if( prev ) {
+					
+				} else if( prev ) {
 					
 					values = prev[ filter as '=' | '!=' ] = [] as string[][]
 					
@@ -67,15 +68,6 @@ namespace $ {
 				
 			} ,
 
-			'list_separator' : ( found , chunks , offset )=> {
-
-				if( !range ) fail_at( offset )
-				
-				values!.push( range! )
-				range = null
-
-			} ,
-			
 			'range_separator' : ( found , chunks , offset )=> {
 				
 				if( !values ) fail_at( offset )
@@ -87,16 +79,14 @@ namespace $ {
 			'fetch_open' : ( found , chunks , offset )=> {
 
 				if( range ) {
-					values!.push( range )
-					range = null
+					range[ range.length - 1 ] += found
+				} else {
+					if( !prev ) fail_at( offset )
+					parent = prev!
+					values = null
+					prev = null
 				}
 				
-				if( !prev ) fail_at( offset )
-				
-				parent = prev!
-				values = null
-				prev = null
-
 			} ,
 			
 			'fetch_separator': ( found , chunks , offset )=> {
@@ -112,16 +102,15 @@ namespace $ {
 				
 			},
 			
-			'fetch_close' : ()=> {
+			'fetch_close' : ( found )=> {
 
 				if( range ) {
-					values!.push( range )
-					range = null
+					range[ range.length - 1 ] += found
+				} else {
+					parent = stack.pop()!
+					values = null
+					prev = null
 				}
-				
-				parent = stack.pop()!
-				values = null
-				prev = null
 
 			} ,
 

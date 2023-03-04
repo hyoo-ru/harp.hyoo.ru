@@ -22,10 +22,10 @@ namespace $ {
 		
 		'primary key' () {
 			check(
-				'user=jin%2C777',
+				'user=jin%2C777!=',
 				{
 					user: {
-						'=': [[ 'jin,777' ]],
+						'=': [[ 'jin,777!' ]],
 					},
 				}
 			)
@@ -33,7 +33,7 @@ namespace $ {
 		
 		'single fetch' () {
 			check(
-				'friend[age%24]',
+				'friend(age%24)',
 				{
 					friend: {
 						age$: {},
@@ -44,10 +44,10 @@ namespace $ {
 		
 		'fetch and primary key' () {
 			check(
-				'user=jin[friend]',
+				'user=jin()=(friend)',
 				{
 					'user': {
-						'=': [[ 'jin' ]],
+						'=': [[ 'jin()' ]],
 						friend: {},
 					},
 				},
@@ -91,7 +91,7 @@ namespace $ {
 		
 		'deep fetch' () {
 			check(
-				'my[friend[age];name];stat',
+				'my(friend(age);name);stat',
 				{
 					my: {
 						friend: {
@@ -120,7 +120,7 @@ namespace $ {
 		
 		'filter types' () {
 			check(
-				'sex=female;status!=married',
+				'sex=female=;status!=married=',
 				{
 					sex: {
 						'=': [[ 'female' ]],
@@ -134,7 +134,7 @@ namespace $ {
 		
 		'filter ranges' () {
 			check(
-				'sex=female;age=18@25;weight=@50;height=150@;hobby=paint,singing',
+				'sex=female=;age=18@25=;weight=@50=;height=150@=;hobby=paint=singing=',
 				{
 					sex: {
 						'=': [[ 'female' ]],
@@ -157,13 +157,13 @@ namespace $ {
 		
 		'unescaped values' () {
 			$mol_assert_like(
-				$hyoo_harp_from_string( 'foo=jin=777;bar=jin!=666' ),
+				$hyoo_harp_from_string( 'foo=jin=777=;bar=jin!=666=' ),
 				{
 					foo: {
-						'=': [[ 'jin=777' ]],
+						'=': [ ['jin'], ['777'] ],
 					},
 					bar: {
-						'=': [[ 'jin!=666' ]],
+						'=': [ ['jin!'], ['666'] ],
 					},
 				}
 			)
@@ -171,7 +171,7 @@ namespace $ {
 		
 		'slicing' () {
 			check(
-				'friend[_num=0@100]',
+				'friend(_num=0@100=)',
 				{
 					friend: {
 						_num: { '=': [[ '0', '100' ]] },
@@ -182,7 +182,7 @@ namespace $ {
 		
 		'complex' () {
 			check(
-				'pullRequest[state=closed,merged;+repository[name;private];-updateTime;_num=0@100]',
+				'pullRequest(state=closed=merged=;+repository(name;private);-updateTime;_num=0@100=)',
 				{
 					pullRequest: {
 						state: {

@@ -29,7 +29,7 @@ namespace $ {
 				pullRequest: $mol_data_optional( PullRequest ),
 			})
 			
-			const uri = 'pullRequest[state=closed;-updated_at;repository[name;isPrivate];_num=0@100]'
+			const uri = 'pullRequest(state=closed=;-updated_at;repository(name;isPrivate);_num=0@100=)'
 			
 			let query = Request({
 				pullRequest: {
