@@ -27,7 +27,7 @@ const Person = $hyoo_harp_scheme({
 ### Build Query
 
 ```ts
-// person(name;+age=18@;article(title);_num=20@29)
+// person(name;+age=18@=;article(title);_num=20@29=)
 const query = Person.build({
     person: {
         name: {},
@@ -52,7 +52,7 @@ const query = Person.build({
 ### Parse Query
 
 ```ts
-const query = Person.parse( 'person(+age=18@;+name;article(title);_num=20@29)' )
+const query = Person.parse( 'person(+age=18@=;+name;article(title);_num=20@29=)' )
 
 const article_fetch1 = Object.keys( query.person.article ) // ❌ article may be absent
 const article_fetch2 = Object.keys( query.person.article ?? {} ) // ✅
