@@ -15,14 +15,14 @@ namespace $ {
 			
 			let values = ( ( harp['='] || harp['!='] || [] ) as unknown[][] ).map( ([ min , max ]) => {
 
-				if( max === undefined || min === max ) return encodeURIComponent( String( min ) )
+				if( max === undefined || min === max ) return encodeURIComponent( String( min ) ) + '='
 				
 				min = ( min === undefined ) ? '' : encodeURIComponent( String( min ) )
 				max = ( max === undefined ) ? '' : encodeURIComponent( String( max ) )
 				
-				return `${ min }@${ max }`
+				return `${ min }@${ max }=`
 
-			} ).join( ',' )
+			} ).join( '' )
 			
 			let fetch = $hyoo_harp_to_string( harp as $hyoo_harp_query )
 			if( fetch ) fetch = `(${fetch})`
