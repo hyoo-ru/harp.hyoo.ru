@@ -4,9 +4,9 @@ namespace $ {
 		'filter' : /!?=/ ,
 		'list_separator' : /,/ ,
 		'range_separator' : /@/ ,
-		'fetch_open' : /\[/ ,
+		'fetch_open' : /\(/ ,
 		'fetch_separator' : /[;&\/?#]/ ,
-		'fetch_close' : /\]/ ,
+		'fetch_close' : /\)/ ,
 	})
 
 	export function $hyoo_harp_from_string( uri: string ): $hyoo_harp_query {

@@ -25,7 +25,7 @@ namespace $ {
 			} ).join( ',' )
 			
 			let fetch = $hyoo_harp_to_string( harp as $hyoo_harp_query )
-			if( fetch ) fetch = `[${fetch}]`
+			if( fetch ) fetch = `(${fetch})`
 
 			return `${order}${name}${filter}${values}${fetch}`
 			

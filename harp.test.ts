@@ -33,7 +33,7 @@ namespace $ {
 		
 		'single fetch' () {
 			check(
-				'friend[age%24]',
+				'friend(age%24)',
 				{
 					friend: {
 						age$: {},
@@ -44,7 +44,7 @@ namespace $ {
 		
 		'fetch and primary key' () {
 			check(
-				'user=jin[friend]',
+				'user=jin(friend)',
 				{
 					'user': {
 						'=': [[ 'jin' ]],
@@ -91,7 +91,7 @@ namespace $ {
 		
 		'deep fetch' () {
 			check(
-				'my[friend[age];name];stat',
+				'my(friend(age);name);stat',
 				{
 					my: {
 						friend: {
@@ -171,7 +171,7 @@ namespace $ {
 		
 		'slicing' () {
 			check(
-				'friend[_num=0@100]',
+				'friend(_num=0@100)',
 				{
 					friend: {
 						_num: { '=': [[ '0', '100' ]] },
@@ -182,7 +182,7 @@ namespace $ {
 		
 		'complex' () {
 			check(
-				'pullRequest[state=closed,merged;+repository[name;private];-updateTime;_num=0@100]',
+				'pullRequest(state=closed,merged;+repository(name;private);-updateTime;_num=0@100)',
 				{
 					pullRequest: {
 						state: {
