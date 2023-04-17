@@ -7,3 +7,6 @@ $hyoo_harp_demo $mol_example_large
 		\API
 		\Query
 		\REST
+	aspects /
+		\Language/HARP Query
+		\Algorithm/Parse
