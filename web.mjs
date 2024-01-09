@@ -7726,7 +7726,7 @@ var $;
         'filter': /!?=/,
         'range_separator': /@/,
         'fetch_open': /\(/,
-        'fetch_separator': /[;&\/?#]/,
+        'fetch_separator': /[:;&\/?#]/,
         'fetch_close': /\)/,
     });
     function $hyoo_harp_from_string(uri) {
@@ -7878,9 +7878,12 @@ var $;
                         statusText: 'Blocked'
                     }));
                 }
-                if (request.method !== 'GET' || !/^https?:/.test(request.url)) {
-                    return event.respondWith(fetch(request));
-                }
+                if (request.method !== 'GET')
+                    return;
+                if (!/^https?:/.test(request.url))
+                    return;
+                if (/\?/.test(request.url))
+                    return;
                 const fresh = fetch(event.request).then(response => {
                     event.waitUntil(caches.open('$mol_offline').then(cache => cache.put(event.request, response)));
                     return response.clone();
