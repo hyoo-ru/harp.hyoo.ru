@@ -4,7 +4,7 @@ namespace $ {
 		'filter' : /!?=/ ,
 		'range_separator' : /@/ ,
 		'fetch_open' : /\(/ ,
-		'fetch_separator' : /[;&\/?#]/ ,
+		'fetch_separator' : /[:;&\/?#]/ ,
 		'fetch_close' : /\)/ ,
 	})
 
