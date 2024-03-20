@@ -811,7 +811,7 @@ var $;
                     destructor: result['destructor'] ?? (() => { })
                 });
                 handled.add(result);
-                const error = new Error();
+                const error = new Error(`Promise in ${this}`);
                 Object.defineProperty(result, 'stack', { get: () => error.stack });
             }
             if (!$mol_promise_like(result)) {
@@ -1939,6 +1939,32 @@ var $;
 
 ;
 "use strict";
+var $;
+(function ($) {
+    function $mol_wire_sync(obj) {
+        return new Proxy(obj, {
+            get(obj, field) {
+                const val = obj[field];
+                if (typeof val !== 'function')
+                    return val;
+                const temp = $mol_wire_task.getter(val);
+                return function $mol_wire_sync(...args) {
+                    const fiber = temp(obj, args);
+                    return fiber.sync();
+                };
+            },
+            apply(obj, self, args) {
+                const temp = $mol_wire_task.getter(obj);
+                const fiber = temp(self, args);
+                return fiber.sync();
+            },
+        });
+    }
+    $.$mol_wire_sync = $mol_wire_sync;
+})($ || ($ = {}));
+
+;
+"use strict";
 var $node = new Proxy({ require }, {
     get(target, name, wrapper) {
         if (target[name])
@@ -1968,9 +1994,12 @@ var $node = new Proxy({ require }, {
             }
         }
         try {
-            return target.require(name);
+            return $.$mol_wire_sync(target).require(name);
         }
         catch (error) {
+            if (error.code === 'ERR_REQUIRE_ESM') {
+                return importSync(name);
+            }
             $.$mol_fail_log(error);
             return null;
         }
@@ -1980,6 +2009,8 @@ var $node = new Proxy({ require }, {
         return true;
     },
 });
+const importAsync = async (uri) => import(uri);
+const importSync = $.$mol_wire_sync(importAsync);
 require = (req => Object.assign(function require(name) {
     return $node[name];
 }, req))(require);
@@ -3728,32 +3759,6 @@ var $;
 var $;
 (function ($) {
     $.$mol_mem_cached = $mol_wire_probe;
-})($ || ($ = {}));
-
-;
-"use strict";
-var $;
-(function ($) {
-    function $mol_wire_sync(obj) {
-        return new Proxy(obj, {
-            get(obj, field) {
-                const val = obj[field];
-                if (typeof val !== 'function')
-                    return val;
-                const temp = $mol_wire_task.getter(val);
-                return function $mol_wire_sync(...args) {
-                    const fiber = temp(obj, args);
-                    return fiber.sync();
-                };
-            },
-            apply(obj, self, args) {
-                const temp = $mol_wire_task.getter(obj);
-                const fiber = temp(self, args);
-                return fiber.sync();
-            },
-        });
-    }
-    $.$mol_wire_sync = $mol_wire_sync;
 })($ || ($ = {}));
 
 ;
@@ -8091,16 +8096,34 @@ var $;
 
 ;
 "use strict";
+
+;
+"use strict";
+
+;
+"use strict";
 var $;
 (function ($_1) {
-    $mol_test_mocks.push($ => $.$mol_fail_log = () => false);
+    $mol_test({
+        'test types'($) {
+            class A {
+                static a() {
+                    return Promise.resolve('');
+                }
+                static b() {
+                    return $mol_wire_sync(this).a();
+                }
+            }
+        },
+    });
 })($ || ($ = {}));
 
 ;
 "use strict";
-
-;
-"use strict";
+var $;
+(function ($_1) {
+    $mol_test_mocks.push($ => $.$mol_fail_log = () => false);
+})($ || ($ = {}));
 
 ;
 "use strict";
@@ -9156,180 +9179,6 @@ var $;
 ;
 "use strict";
 var $;
-(function ($) {
-    function check(str, query) {
-        $mol_assert_like(str, $hyoo_harp_to_string(query));
-        $mol_assert_like(query, $hyoo_harp_from_string(str));
-    }
-    $mol_test({
-        'root'() {
-            check('', {});
-        },
-        'only field'() {
-            check('user%3D777', {
-                'user=777': {},
-            });
-        },
-        'primary key'() {
-            check('user=jin%2C777!=', {
-                user: {
-                    '=': [['jin,777!']],
-                },
-            });
-        },
-        'single fetch'() {
-            check('friend(age%24)', {
-                friend: {
-                    age$: {},
-                },
-            });
-        },
-        'fetch and primary key'() {
-            check('user=jin()=(friend)', {
-                'user': {
-                    '=': [['jin()']],
-                    friend: {},
-                },
-            });
-        },
-        'multiple fetch'() {
-            check('age;friend', {
-                age: {},
-                friend: {},
-            });
-        },
-        'common query string back compatible'() {
-            $mol_assert_like($hyoo_harp_from_string('user=jin&age=100500'), {
-                user: {
-                    '=': [['jin']],
-                },
-                age: {
-                    '=': [['100500']],
-                },
-            });
-        },
-        'common pathname back compatible'() {
-            $mol_assert_like($hyoo_harp_from_string('users/jin/comments'), {
-                users: {},
-                jin: {},
-                comments: {},
-            });
-        },
-        'deep fetch'() {
-            check('my(friend(age);name);stat', {
-                my: {
-                    friend: {
-                        age: {},
-                    },
-                    name: {},
-                },
-                stat: {},
-            });
-        },
-        'orders'() {
-            check('+age;-name', {
-                age: {
-                    '+': true
-                },
-                name: {
-                    '+': false
-                },
-            });
-        },
-        'filter types'() {
-            check('sex=female=;status!=married=', {
-                sex: {
-                    '=': [['female']],
-                },
-                status: {
-                    '!=': [['married']],
-                },
-            });
-        },
-        'filter ranges'() {
-            check('sex=female=;age=18@25=;weight=@50=;height=150@=;hobby=paint=singing=', {
-                sex: {
-                    '=': [['female']],
-                },
-                age: {
-                    '=': [['18', '25']],
-                },
-                weight: {
-                    '=': [['', '50']],
-                },
-                height: {
-                    '=': [['150', '']],
-                },
-                hobby: {
-                    '=': [['paint'], ['singing']],
-                },
-            });
-        },
-        'unescaped values'() {
-            $mol_assert_like($hyoo_harp_from_string('foo=jin=777=;bar=jin!=666='), {
-                foo: {
-                    '=': [['jin'], ['777']],
-                },
-                bar: {
-                    '=': [['jin!'], ['666']],
-                },
-            });
-        },
-        'slicing'() {
-            check('friend(_num=0@100=)', {
-                friend: {
-                    _num: { '=': [['0', '100']] },
-                },
-            });
-        },
-        'complex'() {
-            check('pullRequest(state=closed=merged=;+repository(name;private);-updateTime;_num=0@100=)', {
-                pullRequest: {
-                    state: {
-                        '=': [
-                            ['closed'],
-                            ['merged'],
-                        ]
-                    },
-                    repository: {
-                        '+': true,
-                        name: {},
-                        private: {},
-                    },
-                    updateTime: {
-                        '+': false,
-                    },
-                    _num: {
-                        '=': [['0', '100']],
-                    },
-                },
-            });
-        },
-    });
-})($ || ($ = {}));
-
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_test({
-        'init with overload'() {
-            class X extends $mol_object {
-                foo() {
-                    return 1;
-                }
-            }
-            var x = X.make({
-                foo: () => 2,
-            });
-            $mol_assert_equal(x.foo(), 2);
-        },
-    });
-})($ || ($ = {}));
-
-;
-"use strict";
-var $;
 (function ($_1) {
     $mol_test({
         'Collect deps'() {
@@ -9525,9 +9374,6 @@ var $;
 
 ;
 "use strict";
-
-;
-"use strict";
 var $;
 (function ($) {
     function $mol_promise() {
@@ -9543,24 +9389,6 @@ var $;
         });
     }
     $.$mol_promise = $mol_promise;
-})($ || ($ = {}));
-
-;
-"use strict";
-var $;
-(function ($_1) {
-    $mol_test({
-        'test types'($) {
-            class A {
-                static a() {
-                    return Promise.resolve('');
-                }
-                static b() {
-                    return $mol_wire_sync(this).a();
-                }
-            }
-        },
-    });
 })($ || ($ = {}));
 
 ;
@@ -9633,6 +9461,183 @@ var $;
         },
     });
 })($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    function check(str, query) {
+        $mol_assert_like(str, $hyoo_harp_to_string(query));
+        $mol_assert_like(query, $hyoo_harp_from_string(str));
+    }
+    $mol_test({
+        'root'() {
+            check('', {});
+        },
+        'only field'() {
+            check('user%3D777', {
+                'user=777': {},
+            });
+        },
+        'primary key'() {
+            check('user=jin%2C777!=', {
+                user: {
+                    '=': [['jin,777!']],
+                },
+            });
+        },
+        'single fetch'() {
+            check('friend(age%24)', {
+                friend: {
+                    age$: {},
+                },
+            });
+        },
+        'fetch and primary key'() {
+            check('user=jin()=(friend)', {
+                'user': {
+                    '=': [['jin()']],
+                    friend: {},
+                },
+            });
+        },
+        'multiple fetch'() {
+            check('age;friend', {
+                age: {},
+                friend: {},
+            });
+        },
+        'common query string back compatible'() {
+            $mol_assert_like($hyoo_harp_from_string('user=jin&age=100500'), {
+                user: {
+                    '=': [['jin']],
+                },
+                age: {
+                    '=': [['100500']],
+                },
+            });
+        },
+        'common pathname back compatible'() {
+            $mol_assert_like($hyoo_harp_from_string('users/jin/comments'), {
+                users: {},
+                jin: {},
+                comments: {},
+            });
+        },
+        'deep fetch'() {
+            check('my(friend(age);name);stat', {
+                my: {
+                    friend: {
+                        age: {},
+                    },
+                    name: {},
+                },
+                stat: {},
+            });
+        },
+        'orders'() {
+            check('+age;-name', {
+                age: {
+                    '+': true
+                },
+                name: {
+                    '+': false
+                },
+            });
+        },
+        'filter types'() {
+            check('sex=female=;status!=married=', {
+                sex: {
+                    '=': [['female']],
+                },
+                status: {
+                    '!=': [['married']],
+                },
+            });
+        },
+        'filter ranges'() {
+            check('sex=female=;age=18@25=;weight=@50=;height=150@=;hobby=paint=singing=', {
+                sex: {
+                    '=': [['female']],
+                },
+                age: {
+                    '=': [['18', '25']],
+                },
+                weight: {
+                    '=': [['', '50']],
+                },
+                height: {
+                    '=': [['150', '']],
+                },
+                hobby: {
+                    '=': [['paint'], ['singing']],
+                },
+            });
+        },
+        'unescaped values'() {
+            $mol_assert_like($hyoo_harp_from_string('foo=jin=777=;bar=jin!=666='), {
+                foo: {
+                    '=': [['jin'], ['777']],
+                },
+                bar: {
+                    '=': [['jin!'], ['666']],
+                },
+            });
+        },
+        'slicing'() {
+            check('friend(_num=0@100=)', {
+                friend: {
+                    _num: { '=': [['0', '100']] },
+                },
+            });
+        },
+        'complex'() {
+            check('pullRequest(state=closed=merged=;+repository(name;private);-updateTime;_num=0@100=)', {
+                pullRequest: {
+                    state: {
+                        '=': [
+                            ['closed'],
+                            ['merged'],
+                        ]
+                    },
+                    repository: {
+                        '+': true,
+                        name: {},
+                        private: {},
+                    },
+                    updateTime: {
+                        '+': false,
+                    },
+                    _num: {
+                        '=': [['0', '100']],
+                    },
+                },
+            });
+        },
+    });
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_test({
+        'init with overload'() {
+            class X extends $mol_object {
+                foo() {
+                    return 1;
+                }
+            }
+            var x = X.make({
+                foo: () => 2,
+            });
+            $mol_assert_equal(x.foo(), 2);
+        },
+    });
+})($ || ($ = {}));
+
+;
+"use strict";
 
 ;
 "use strict";
